@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  min-height: 180vh;
+  min-height: max(160vh, 100vh + 600px);
   display: flex;
   justify-content: center;
   align-items: center;
