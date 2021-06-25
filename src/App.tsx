@@ -46,8 +46,8 @@ const Game = ({
   const [yPosition, setYPosition] = useState(33);
   const [xPositionSlow, setXPositionSlow] = useState(0);
   const [yPositionSlow, setYPositionSlow] = useState(66);
-  const [speed, setSpeed] = useState(2);
-  const [speedSlow, setSpeedSlow] = useState(1);
+  const [speed, setSpeed] = useState(1.8);
+  const [speedSlow, setSpeedSlow] = useState(0.8);
 
   const shark = useRef<HTMLImageElement>(null);
   const waterBall = useRef<HTMLImageElement>(null);
@@ -59,7 +59,7 @@ const Game = ({
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const newXPosition = (xPosition + speed) % 95;
+      const newXPosition = (xPosition + Math.round(speed * 2) / 2) % 95;
       if (newXPosition > 50 && shark.current && waterBall.current) {
         const sharkRect = shark.current.getBoundingClientRect();
         const waterBallRect = waterBall.current.getBoundingClientRect();
@@ -76,7 +76,7 @@ const Game = ({
       setXPosition(newXPosition);
       if (newXPosition === 0) {
         setYPosition(Math.round(10 + Math.random() * 80));
-        setSpeed(Math.random() > 0.5 ? speed : Math.min(5, speed + 0.5));
+        setSpeed(Math.min(5, speed + 0.2));
       }
     }, 20);
     return () => clearInterval(interval);
@@ -95,7 +95,7 @@ const Game = ({
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const newXPosition = (xPositionSlow + speedSlow) % 95;
+      const newXPosition = (xPositionSlow + Math.round(speedSlow * 2) / 2) % 95;
 
       if (newXPosition > 50 && shark.current && waterBallSlow.current) {
         const sharkRect = shark.current.getBoundingClientRect();
@@ -112,9 +112,7 @@ const Game = ({
       setXPositionSlow(newXPosition);
       if (newXPosition === 0) {
         setYPositionSlow(Math.round(10 + Math.random() * 80));
-        setSpeedSlow(
-          Math.random() > 0.5 ? speedSlow : Math.min(5, speedSlow + 0.25)
-        );
+        setSpeedSlow(Math.min(5, speedSlow + 0.2));
       }
     }, 20);
     return () => clearInterval(interval);
@@ -157,7 +155,7 @@ const Game = ({
         id="water-ball-slow"
         ref={waterBallSlow}
       />
-      <span className="score">Score: {score}</span>
+      <span className="game-score">Score: {score}</span>
     </div>
   );
 };

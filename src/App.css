@@ -60,7 +60,7 @@
   }
 }
 
-.game .score {
+.game-score {
   animation: blink-animation 0.3s steps(5, start) infinite;
   -webkit-animation: blink-animation 0.3s steps(5, start) infinite;
   padding: 10px;
@@ -68,4 +68,5 @@
   bottom: 0;
   right: 0;
   font-size: 25px;
+  color: blue;
 }
