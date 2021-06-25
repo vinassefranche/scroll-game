@@ -7,6 +7,10 @@
   background-color: aqua;
 }
 
+.App.game-over {
+  height: 100vh;
+}
+
 .game {
   height: 600px;
   width: 1200px;
@@ -26,4 +30,9 @@
   transform: rotate(180deg);
   position: absolute;
   top: calc(50% - 40px);
+}
+
+.game-over {
+  font-size: 50px;
+  margin-bottom: 50px;
 }
