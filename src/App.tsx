@@ -29,8 +29,8 @@ const Game = ({setGameOver, score, setScore}: {setGameOver: () => void; score: n
   const [yPosition, setYPosition] = useState(33);
   const [xPositionSlow, setXPositionSlow] = useState(0);
   const [yPositionSlow, setYPositionSlow] = useState(66);
-  const [speed, setSpeed] = useState(1);
-  const [speedSlow, setSpeedSlow] = useState(0.5);
+  const [speed, setSpeed] = useState(2);
+  const [speedSlow, setSpeedSlow] = useState(1);
 
   useEffect(() => {
     const interval = setInterval(() => {
