@@ -26,13 +26,13 @@
 }
 
 .water-ball {
-  height: 80px;
+  height: 40px;
   transform: rotate(180deg);
   position: absolute;
 }
 
 .water-ball.slow {
-  height: 120px;
+  height: 60px;
 }
 
 .game-over {

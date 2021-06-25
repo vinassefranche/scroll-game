@@ -90,8 +90,8 @@ const Game = ({setGameOver, score, setScore}: {setGameOver: () => void; score: n
   return (
     <div className="game">
       <img src="/Sammy_punk.png" alt="Sammy the punk shark" className="shark" id="shark"/>
-      <img src="/water-ball.gif" alt="Water ball" className="water-ball" style={{right: `${xPosition}%`, top: `calc(${yPosition}% - 40px)`}} id="water-ball"/>
-      <img src="/water-ball.gif" alt="Water ball" className="water-ball slow" style={{right: `${xPositionSlow}%`, top: `calc(${yPositionSlow}% - 40px)`}} id="water-ball-slow"/>
+      <img src="/water-ball.png" alt="Water ball" className="water-ball" style={{right: `${xPosition}%`, top: `calc(${yPosition}% - 40px)`}} id="water-ball"/>
+      <img src="/water-ball.png" alt="Water ball" className="water-ball slow" style={{right: `${xPositionSlow}%`, top: `calc(${yPositionSlow}% - 40px)`}} id="water-ball-slow"/>
       <span className="score">Score: {score}</span>
     </div>
   );
