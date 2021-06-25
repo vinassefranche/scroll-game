@@ -4,21 +4,20 @@ import './App.css';
 const App = () => {
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
-  return (
-    <div className={`App${gameOver ? ' game-over' : ''}`}>
-      {gameOver
-      ? <div>
+  return gameOver
+      ? <div className="game-over-menu">
         <img src="/explosion.png" alt="Explosion!"></img>
         <div className="game-over">Game Over!</div>
         <span className="score">Score: {score}</span>
         <div><button onClick={() => {
           setGameOver(false);
           setScore(0);
-        }}>Restart</button></div>
+        }}>Restart</button>
       </div>
-      : <Game setGameOver={() => setGameOver(true)} score={score} setScore={setScore}/>}
-    </div>
-  );
+    </div>: <div className="game-container">
+    <Game setGameOver={() => setGameOver(true)} score={score} setScore={setScore}/>
+      </div>
+  ;
 }
 
 export default App;
@@ -35,6 +34,10 @@ const Game = ({setGameOver, score, setScore}: {setGameOver: () => void; score: n
   const shark = useRef<HTMLImageElement>(null);
   const waterBall = useRef<HTMLImageElement>(null);
   const waterBallSlow = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    window.scrollTo({top: window.innerHeight/3})
+  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {

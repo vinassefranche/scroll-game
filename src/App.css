@@ -1,5 +1,4 @@
-.App {
-  text-align: center;
+.game-container {
   min-height: max(160vh, 100vh + 600px);
   display: flex;
   justify-content: center;
@@ -7,8 +6,23 @@
   background-color: aqua;
 }
 
-.App.game-over {
+.game-over-menu {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: aqua;
+}
+
+.game-over {
+  font-size: 50px;
+}
+
+.score {
+  margin-bottom: 30px;
+  color: blue;
+  font-size: 50px;
 }
 
 .game {
@@ -33,16 +47,6 @@
 
 .water-ball.slow {
   height: 60px;
-}
-
-.game-over {
-  font-size: 50px;
-  margin-bottom: 50px;
-}
-
-.score {
-  color: blue;
-  font-size: 50px;
 }
 
 @keyframes blink-animation {
