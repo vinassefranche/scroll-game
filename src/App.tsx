@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 
 const App = () => {
@@ -32,15 +32,16 @@ const Game = ({setGameOver, score, setScore}: {setGameOver: () => void; score: n
   const [speed, setSpeed] = useState(2);
   const [speedSlow, setSpeedSlow] = useState(1);
 
+  const shark = useRef<HTMLImageElement>(null);
+  const waterBall = useRef<HTMLImageElement>(null);
+  const waterBallSlow = useRef<HTMLImageElement>(null);
+
   useEffect(() => {
     const interval = setInterval(() => {
       const newXPosition = (xPosition + speed) % 95;
-
-      const shark = document.querySelector('#shark');
-      const waterBall = document.querySelector('#water-ball');
-      if(newXPosition > 50 && shark && waterBall) {
-        const sharkRect = shark.getBoundingClientRect();
-        const waterBallRect = waterBall.getBoundingClientRect();
+      if(newXPosition > 50 && shark.current && waterBall.current) {
+        const sharkRect = shark.current.getBoundingClientRect();
+        const waterBallRect = waterBall.current.getBoundingClientRect();
         if(
           waterBallRect.top < sharkRect.bottom
           && waterBallRect.bottom > sharkRect.top
@@ -58,17 +59,15 @@ const Game = ({setGameOver, score, setScore}: {setGameOver: () => void; score: n
       }
     }, 20);
     return () => clearInterval(interval)
-  }, [xPosition, setXPosition, setYPosition, setGameOver, speed, setSpeed, score, setScore]);
+  }, [xPosition, setXPosition, setYPosition, setGameOver, speed, setSpeed, score, setScore, shark, waterBall]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       const newXPosition = (xPositionSlow + speedSlow) % 95;
 
-      const shark = document.querySelector('#shark');
-      const waterBall = document.querySelector('#water-ball-slow');
-      if(newXPosition > 50 && shark && waterBall) {
-        const sharkRect = shark.getBoundingClientRect();
-        const waterBallRect = waterBall.getBoundingClientRect();
+      if(newXPosition > 50 && shark.current && waterBallSlow.current) {
+        const sharkRect = shark.current.getBoundingClientRect();
+        const waterBallRect = waterBallSlow.current.getBoundingClientRect();
         if(
           waterBallRect.top < sharkRect.bottom
           && waterBallRect.bottom > sharkRect.top
@@ -85,13 +84,13 @@ const Game = ({setGameOver, score, setScore}: {setGameOver: () => void; score: n
       }
     }, 20);
     return () => clearInterval(interval)
-  }, [xPositionSlow, setXPositionSlow, setYPositionSlow, setGameOver, speedSlow, setSpeedSlow]);
+  }, [xPositionSlow, setXPositionSlow, setYPositionSlow, setGameOver, speedSlow, setSpeedSlow, shark, waterBallSlow]);
 
   return (
     <div className="game">
-      <img src="/Sammy_punk.png" alt="Sammy the punk shark" className="shark" id="shark"/>
-      <img src="/water-ball.png" alt="Water ball" className="water-ball" style={{right: `${xPosition}%`, top: `calc(${yPosition}% - 20px)`}} id="water-ball"/>
-      <img src="/water-ball.png" alt="Water ball" className="water-ball slow" style={{right: `${xPositionSlow}%`, top: `calc(${yPositionSlow}% - 30px)`}} id="water-ball-slow"/>
+      <img src="/Sammy_punk.png" alt="Sammy the punk shark" className="shark" id="shark" ref={shark}/>
+      <img src="/water-ball.png" alt="Water ball" className="water-ball" style={{right: `${xPosition}%`, top: `calc(${yPosition}% - 20px)`}} id="water-ball" ref={waterBall}/>
+      <img src="/water-ball.png" alt="Water ball" className="water-ball slow" style={{right: `${xPositionSlow}%`, top: `calc(${yPositionSlow}% - 30px)`}} id="water-ball-slow" ref={waterBallSlow}/>
       <span className="score">Score: {score}</span>
     </div>
   );
