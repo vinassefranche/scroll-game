@@ -29,7 +29,6 @@
   height: 80px;
   transform: rotate(180deg);
   position: absolute;
-  top: calc(50% - 40px);
 }
 
 .game-over {

@@ -22,6 +22,7 @@ export default App;
 const Game = ({setGameOver}: {setGameOver: () => void}) => {
   const [xPosition, setXPosition] = useState(0);
   const [yPosition, setYPosition] = useState(50);
+  const [speed, setSpeed] = useState(1);
   useEffect(() => {
     const interval = setInterval(() => {
       const shark = document.querySelector('#shark');
@@ -35,14 +36,15 @@ const Game = ({setGameOver}: {setGameOver: () => void}) => {
             setGameOver();
           }
       }
-      const newXPosition = (xPosition + 1) % 95;
+      const newXPosition = (xPosition + speed) % 95;
       setXPosition(newXPosition);
       if(newXPosition === 0) {
         setYPosition(Math.round(10 + Math.random() * 80))
+        setSpeed(Math.random() > 0.5 ? speed : Math.min(5, speed + 0.5))
       }
-    }, 10);
+    }, 20);
     return () => clearInterval(interval)
-  }, [xPosition, setXPosition, setYPosition, setGameOver]);
+  }, [xPosition, setXPosition, setYPosition, setGameOver, speed, setSpeed]);
 
   return (
     <div className="game">
