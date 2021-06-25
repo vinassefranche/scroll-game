@@ -3,15 +3,20 @@ import './App.css';
 
 const App = () => {
   const [gameOver, setGameOver] = useState(false);
+  const [score, setScore] = useState(0);
   return (
     <div className={`App${gameOver ? ' game-over' : ''}`}>
       {gameOver
       ? <div>
         <img src="/explosion.png" alt="Explosion!"></img>
         <div className="game-over">Game Over!</div>
-        <div><button onClick={() => setGameOver(false)}>Restart</button></div>
+        <span className="score">Score: {score}</span>
+        <div><button onClick={() => {
+          setGameOver(false);
+          setScore(0);
+        }}>Restart</button></div>
       </div>
-      : <Game setGameOver={() => setGameOver(true)}/>}
+      : <Game setGameOver={() => setGameOver(true)} score={score} setScore={setScore}/>}
     </div>
   );
 }
@@ -19,7 +24,7 @@ const App = () => {
 export default App;
 
 
-const Game = ({setGameOver}: {setGameOver: () => void}) => {
+const Game = ({setGameOver, score, setScore}: {setGameOver: () => void; score: number; setScore: (score: number) => void}) => {
   const [xPosition, setXPosition] = useState(0);
   const [yPosition, setYPosition] = useState(33);
   const [xPositionSlow, setXPositionSlow] = useState(0);
@@ -45,6 +50,7 @@ const Game = ({setGameOver}: {setGameOver: () => void}) => {
             setGameOver();
           }
       }
+      setScore(Math.ceil(score + speed))
       setXPosition(newXPosition);
       if(newXPosition === 0) {
         setYPosition(Math.round(10 + Math.random() * 80))
@@ -52,7 +58,7 @@ const Game = ({setGameOver}: {setGameOver: () => void}) => {
       }
     }, 20);
     return () => clearInterval(interval)
-  }, [xPosition, setXPosition, setYPosition, setGameOver, speed, setSpeed]);
+  }, [xPosition, setXPosition, setYPosition, setGameOver, speed, setSpeed, score, setScore]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -86,6 +92,7 @@ const Game = ({setGameOver}: {setGameOver: () => void}) => {
       <img src="/Sammy_punk.png" alt="Sammy the punk shark" className="shark" id="shark"/>
       <img src="/water-ball.gif" alt="Water ball" className="water-ball" style={{right: `${xPosition}%`, top: `calc(${yPosition}% - 40px)`}} id="water-ball"/>
       <img src="/water-ball.gif" alt="Water ball" className="water-ball slow" style={{right: `${xPositionSlow}%`, top: `calc(${yPositionSlow}% - 40px)`}} id="water-ball-slow"/>
+      <span className="score">Score: {score}</span>
     </div>
   );
 }
