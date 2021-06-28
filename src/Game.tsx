@@ -47,7 +47,7 @@ export const Game = ({
         return setGameOver(score);
       }
     }
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setScore(Math.ceil(score + speed));
 
       const newXPosition = (xPosition + Math.round(speed * 2) / 2) % 95;
@@ -65,6 +65,7 @@ export const Game = ({
         setSpeedSlow(Math.min(5, speedSlow + 0.2));
       }
     }, 20);
+    return () => clearTimeout(timeout);
   }, [
     xPosition,
     xPositionSlow,
