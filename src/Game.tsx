@@ -3,12 +3,8 @@ import "./Game.css";
 
 export const Game = ({
   setGameOver,
-  score,
-  setScore,
 }: {
-  setGameOver: () => void;
-  score: number;
-  setScore: (score: number) => void;
+  setGameOver: (score: number) => void;
 }) => {
   const [xPosition, setXPosition] = useState(0);
   const [yPosition, setYPosition] = useState(33);
@@ -16,6 +12,7 @@ export const Game = ({
   const [yPositionSlow, setYPositionSlow] = useState(66);
   const [speed, setSpeed] = useState(1.8);
   const [speedSlow, setSpeedSlow] = useState(0.8);
+  const [score, setScore] = useState(0);
 
   const shark = useRef<HTMLImageElement>(null);
   const waterBall = useRef<HTMLImageElement>(null);
@@ -37,7 +34,7 @@ export const Game = ({
           waterBallRect.left < sharkRect.right &&
           waterBallRect.right > sharkRect.left
         ) {
-          setGameOver();
+          setGameOver(score);
         }
       }
       setScore(Math.ceil(score + speed));
@@ -62,7 +59,7 @@ export const Game = ({
   ]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    setTimeout(() => {
       const newXPosition = (xPositionSlow + Math.round(speedSlow * 2) / 2) % 95;
 
       if (newXPosition > 50 && shark.current && waterBallSlow.current) {
@@ -74,7 +71,7 @@ export const Game = ({
           waterBallRect.left < sharkRect.right &&
           waterBallRect.right > sharkRect.left
         ) {
-          setGameOver();
+          setGameOver(score);
         }
       }
       setXPositionSlow(newXPosition);
@@ -83,7 +80,6 @@ export const Game = ({
         setSpeedSlow(Math.min(5, speedSlow + 0.2));
       }
     }, 20);
-    return () => clearInterval(interval);
   }, [
     xPositionSlow,
     setXPositionSlow,
@@ -93,6 +89,7 @@ export const Game = ({
     setSpeedSlow,
     shark,
     waterBallSlow,
+    score,
   ]);
 
   return (

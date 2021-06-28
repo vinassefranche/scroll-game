@@ -7,6 +7,7 @@ const App = () => {
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const { bestScore, checkAndSetBestScore, resetBestScore } = useBestScore();
+
   return gameOver ? (
     <div className="game-over-menu">
       <img src="/explosion.png" alt="Explosion!"></img>
@@ -28,12 +29,11 @@ const App = () => {
   ) : (
     <div className="game-container">
       <Game
-        setGameOver={() => {
+        setGameOver={(score: number) => {
+          setScore(score);
           setGameOver(true);
           checkAndSetBestScore(score);
         }}
-        score={score}
-        setScore={setScore}
       />
     </div>
   );

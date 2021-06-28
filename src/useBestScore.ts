@@ -15,10 +15,12 @@ export const useBestScore = () => {
     [setBestScore, bestScore]
   );
 
+  const resetBestScore = useCallback(() => setBestScore(0), [setBestScore]);
+
   return {
     bestScore,
     checkAndSetBestScore,
-    resetBestScore: () => setBestScore(0),
+    resetBestScore,
   };
 };
 
