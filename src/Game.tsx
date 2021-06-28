@@ -23,20 +23,20 @@ export const Game = ({
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const newXPosition = (xPosition + Math.round(speed * 2) / 2) % 95;
-      if (newXPosition > 50 && shark.current && waterBall.current) {
-        const sharkRect = shark.current.getBoundingClientRect();
-        const waterBallRect = waterBall.current.getBoundingClientRect();
-        if (
-          waterBallRect.top < sharkRect.bottom &&
-          waterBallRect.bottom > sharkRect.top &&
-          waterBallRect.left < sharkRect.right &&
-          waterBallRect.right > sharkRect.left
-        ) {
-          setGameOver(score);
-        }
+    if (xPosition > 50 && shark.current && waterBall.current) {
+      const sharkRect = shark.current.getBoundingClientRect();
+      const waterBallRect = waterBall.current.getBoundingClientRect();
+      if (
+        waterBallRect.top < sharkRect.bottom &&
+        waterBallRect.bottom > sharkRect.top &&
+        waterBallRect.left < sharkRect.right &&
+        waterBallRect.right > sharkRect.left
+      ) {
+        return setGameOver(score);
       }
+    }
+    setTimeout(() => {
+      const newXPosition = (xPosition + Math.round(speed * 2) / 2) % 95;
       setScore(Math.ceil(score + speed));
       setXPosition(newXPosition);
       if (newXPosition === 0) {
@@ -44,7 +44,6 @@ export const Game = ({
         setSpeed(Math.min(5, speed + 0.2));
       }
     }, 20);
-    return () => clearInterval(interval);
   }, [
     xPosition,
     setXPosition,
@@ -59,21 +58,20 @@ export const Game = ({
   ]);
 
   useEffect(() => {
+    if (xPositionSlow > 50 && shark.current && waterBallSlow.current) {
+      const sharkRect = shark.current.getBoundingClientRect();
+      const waterBallRect = waterBallSlow.current.getBoundingClientRect();
+      if (
+        waterBallRect.top < sharkRect.bottom &&
+        waterBallRect.bottom > sharkRect.top &&
+        waterBallRect.left < sharkRect.right &&
+        waterBallRect.right > sharkRect.left
+      ) {
+        return setGameOver(score);
+      }
+    }
     setTimeout(() => {
       const newXPosition = (xPositionSlow + Math.round(speedSlow * 2) / 2) % 95;
-
-      if (newXPosition > 50 && shark.current && waterBallSlow.current) {
-        const sharkRect = shark.current.getBoundingClientRect();
-        const waterBallRect = waterBallSlow.current.getBoundingClientRect();
-        if (
-          waterBallRect.top < sharkRect.bottom &&
-          waterBallRect.bottom > sharkRect.top &&
-          waterBallRect.left < sharkRect.right &&
-          waterBallRect.right > sharkRect.left
-        ) {
-          setGameOver(score);
-        }
-      }
       setXPositionSlow(newXPosition);
       if (newXPosition === 0) {
         setYPositionSlow(Math.round(10 + Math.random() * 80));
