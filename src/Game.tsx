@@ -35,29 +35,6 @@ export const Game = ({
         return setGameOver(score);
       }
     }
-    setTimeout(() => {
-      const newXPosition = (xPosition + Math.round(speed * 2) / 2) % 95;
-      setScore(Math.ceil(score + speed));
-      setXPosition(newXPosition);
-      if (newXPosition === 0) {
-        setYPosition(Math.round(10 + Math.random() * 80));
-        setSpeed(Math.min(5, speed + 0.2));
-      }
-    }, 20);
-  }, [
-    xPosition,
-    setXPosition,
-    setYPosition,
-    setGameOver,
-    speed,
-    setSpeed,
-    score,
-    setScore,
-    shark,
-    waterBall,
-  ]);
-
-  useEffect(() => {
     if (xPositionSlow > 50 && shark.current && waterBallSlow.current) {
       const sharkRect = shark.current.getBoundingClientRect();
       const waterBallRect = waterBallSlow.current.getBoundingClientRect();
@@ -71,23 +48,39 @@ export const Game = ({
       }
     }
     setTimeout(() => {
-      const newXPosition = (xPositionSlow + Math.round(speedSlow * 2) / 2) % 95;
-      setXPositionSlow(newXPosition);
+      setScore(Math.ceil(score + speed));
+
+      const newXPosition = (xPosition + Math.round(speed * 2) / 2) % 95;
+      setXPosition(newXPosition);
       if (newXPosition === 0) {
+        setYPosition(Math.round(10 + Math.random() * 80));
+        setSpeed(Math.min(5, speed + 0.2));
+      }
+
+      const newXPositionSlow =
+        (xPositionSlow + Math.round(speedSlow * 2) / 2) % 95;
+      setXPositionSlow(newXPositionSlow);
+      if (newXPositionSlow === 0) {
         setYPositionSlow(Math.round(10 + Math.random() * 80));
         setSpeedSlow(Math.min(5, speedSlow + 0.2));
       }
     }, 20);
   }, [
+    xPosition,
     xPositionSlow,
+    setXPosition,
     setXPositionSlow,
+    setYPosition,
     setYPositionSlow,
     setGameOver,
+    speed,
     speedSlow,
+    setSpeed,
     setSpeedSlow,
-    shark,
-    waterBallSlow,
     score,
+    setScore,
+    shark,
+    waterBall,
   ]);
 
   return (
