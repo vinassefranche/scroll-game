@@ -20,9 +20,22 @@
 }
 
 .score {
-  margin-bottom: 30px;
   color: blue;
+  margin-bottom: 30px;
   font-size: 50px;
+}
+
+.best-score {
+  color: blue;
+  margin-bottom: 30px;
+  font-size: 30px;
+}
+
+.new-best-score {
+  color: red;
+  margin-bottom: 30px;
+  animation: wobble 2s ease-in-out infinite;
+  font-size: 75px;
 }
 
 .buttons {
@@ -32,4 +45,14 @@
 
 .buttons button:not(:last-child) {
   margin-bottom: 10px;
+}
+
+@keyframes wobble {
+  from,
+  to {
+    transform: rotateY(-90deg);
+  }
+  50% {
+    transform: rotateY(45deg);
+  }
 }

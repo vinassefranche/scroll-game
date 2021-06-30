@@ -13,7 +13,11 @@ const App = () => {
       <img src="/explosion.png" alt="Explosion!"></img>
       <div className="game-over">Game Over!</div>
       <span className="score">Score: {score}</span>
-      <span className="score">Best score: {bestScore}</span>
+      {score === bestScore ? (
+        <span className="new-best-score">This is your best score!!</span>
+      ) : (
+        <span className="best-score">Best score: {bestScore}</span>
+      )}
       <div className="buttons">
         <button
           onClick={() => {
