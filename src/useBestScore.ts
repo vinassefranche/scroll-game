@@ -15,7 +15,10 @@ export const useBestScore = () => {
     [setBestScore, bestScore]
   );
 
-  const resetBestScore = useCallback(() => setBestScore(0), [setBestScore]);
+  const resetBestScore = useCallback(() => {
+    setBestScore(0);
+    localStorage.setItem(LOCAL_STORAGE_KEY, "0");
+  }, [setBestScore]);
 
   return {
     bestScore,
